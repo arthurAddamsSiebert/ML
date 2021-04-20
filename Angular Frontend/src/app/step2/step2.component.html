@@ -1,0 +1,8 @@
+<h1>Assumptions</h1>
+
+<ul *ngIf='rocs'>
+    <li *ngFor='let roc of rocs'>
+        <p class="title">{{ roc.symbol }}</p>
+    </li>
+</ul>
+<a class="button" href="/" routerlink="/" >Start again</a>
