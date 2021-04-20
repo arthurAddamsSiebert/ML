@@ -1,11 +1,16 @@
 <br>
-<ul>
+<ul *ngIf='newTitles && step2'>
+    <li *ngFor='let title of newTitles.test' (click)="onClick(title[0])" [style.border-color]="clickedTitles.indexOf(title[0]) > -1 ? 'rgb(245, 55, 55)': 'rgb(17, 17, 17)'">
+        <p class="title" [style.color]="clickedTitles.indexOf(title[0]) > -1 ? 'rgb(245, 55, 55)': 'white'">{{ title[1] }}</p>
+    </li>
 </ul>
-<ul *ngIf='titles'>
-    <li *ngFor='let title of titles' (click)="onClick(title.symbol)" [style.border-color]="clickedTitles.indexOf(title.symbol) > -1 ? 'rgb(245, 55, 55)': 'rgb(17, 17, 17)'">
-        <p class="title" [style.color]="clickedTitles.indexOf(title.symbol) > -1 ? 'rgb(245, 55, 55)': 'white'">{{ title.symbol }}</p>
+<ul *ngIf='titles && step1'>
+    <li *ngFor='let title of titles.test' (click)="onClick(title[0])" [style.border-color]="clickedTitles.indexOf(title[0]) > -1 ? 'rgb(245, 55, 55)': 'rgb(17, 17, 17)'">
+        <p class="title" [style.color]="clickedTitles.indexOf(title[0]) > -1 ? 'rgb(245, 55, 55)': 'white'">{{ title[1] }}</p>
     </li>
 </ul>
 <div class="buttonContainer">
     <p class="button" (click)="sendReq()" id="button">Get Recommendations</p>
 </div>
+
+

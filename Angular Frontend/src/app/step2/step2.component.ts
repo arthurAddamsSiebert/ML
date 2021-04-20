@@ -12,10 +12,7 @@ export class Step2Component implements OnInit {
   rocs: Object;
   clickedTitles: Array<string> = [];
   ngOnInit(): void {
-    this.api.getRecos().subscribe(data => {
-      this.rocs = data;
-      console.log(this.rocs);
-    });
+    
   }
 
 }

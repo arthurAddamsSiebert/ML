@@ -11,6 +11,8 @@ export class Step1Component implements OnInit {
 
   constructor(private api: ApiServiceService) { }
   angabenMachen = true;
+  step1 = true;
+  step2 = false;
   titles: any = [];
   newTitles: any = [];
   clickedTitles: Array<string> = [];
@@ -18,11 +20,12 @@ export class Step1Component implements OnInit {
   currentMovieIdData: Object;
   imgArray: Array<string> = ['eKtuGJQJ06iafhYl22mYCWidjmM.jpg'];
   ngOnInit(): void {
-    this.api.getData().subscribe(data => {
-      this.titles = data;
-      console.log(this.titles);
-    });
+    this.init();
 
+  }
+
+  async init(){
+    this.titles = await this.api.getData()
   }
 
   async onClick(title: string){
@@ -42,23 +45,23 @@ export class Step1Component implements OnInit {
   async sendReq(){
     if(this.angabenMachen==true){
       if(this.clickedTitles.length > 4){
+        this.step1 =false;
+        this.step2 = true;
         console.log(this.clickedTitles);
-      this.api.sendClicked(this.clickedTitles);
-      let entry: any;
-      var count = 0;
-      for(let entry of this.titles){
-        count++;
-      }
-      for(let i = 0;i < count;i++){
-        if(this.clickedTitles.indexOf(this.titles[i].symbol) > -1){
-          this.newTitles.push(this.titles[i]);
-        }
-      }
-      this.titles = this.newTitles;
+      //this.api.getRecos(this.clickedTitles);
+      const res = await this.api.getRecos({ids:this.clickedTitles});
+        //for(let)
+
+      console.log(res);
+      console.log(res);
+      console.log(this.titles.test);
+      this.newTitles = { test: res};
+      console.log(this.titles);
+      console.log(this.titles.test);
       document.getElementById('button').innerHTML = 'Restart';
       this.angabenMachen = false;
       }else{
-        alert('Bitte wählen mindestens 5 Titel aus');
+        alert('Bitte wählen Sie mindestens 5 Titel aus');
       }
     } else {
       window.location.reload();
